@@ -10,9 +10,16 @@ const app = express();
 app.use(express.json())
 const cors=require('cors')
 
-app.use(cors({
+/*app.use(cors({
     origin: 'https://frontend-react-crud-hooks-filepond-cloudinary-usemem-cvtdsmo1s.vercel.app' // Replace with your frontend URL
-}));
+}));*/
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://frontend-react-crud-hooks-filepond-cloudinary-usemem-cvtdsmo1s.vercel.app");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+});
+
 
 mongoose.set('strictQuery', true)
 mongoose.connect(process.env.DATABASECLOUD,{
