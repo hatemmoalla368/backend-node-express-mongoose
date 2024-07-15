@@ -4,11 +4,15 @@ const dotenv =require('dotenv')
 const categorieRouter = require('./routes/categorie.route')
 const scategorieRouter = require('./routes/scategorie.route')
 const articleRouter = require('./routes/article.route')
-
+const paymentRouter = require( "./routes/payment.route.js")
 dotenv.config()
 const app = express();
 app.use(express.json())
+const cors=require('cors')
 
+app.use(cors({
+    origin: 'https://frontend-react-crud-hooks-filepond-cloudinary-usemem-cvtdsmo1s.vercel.app' // Replace with your frontend URL
+}));
 
 mongoose.set('strictQuery', true)
 mongoose.connect(process.env.DATABASECLOUD,{
@@ -29,6 +33,7 @@ mongoose.connect(process.env.DATABASECLOUD,{
     app.use("/api/categories", categorieRouter)
     app.use("/api/scategories", scategorieRouter)
     app.use("/api/articles", articleRouter)
+    app.use('/api/payment', paymentRouter);
     app.listen(process.env.PORT, () => {
         
     console.log(`Server is listening on port ${process.env.PORT}`); });
